@@ -111,3 +111,8 @@ To save time in this process, the IT team suggested an ML system that detects in
 ## Acknowledgements (optional)
 
 - Thank the people who provided support throughout this project.
+
+## Named Entity Recognition (NER) using Hugging Face Transformers
+# https://www.youtube.com/watch?time_continue=53&v=rsyrZnZ8J2o&embeds_referring_euri=https%3A%2F%2Fwww.bing.com%2F&embeds_referring_origin=https%3A%2F%2Fwww.bing.com&source_ve_path=MjM4NTE
+
+# x_train['designation'].value_counts().unique()
