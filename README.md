@@ -24,6 +24,11 @@ You can safely delete the Template Instructions section of this README.md file a
 
 1. Click the kernel button and choose Python Environments.
 
+## Large Files
+
+This project uses [Git LFS](https://git-lfs.github.com/) for large files.
+Please run `git lfs install` after cloning.
+
 Note that the kernel says Python 3.12.1 as it inherits from the workspace, so it will be Python-3.12.1 as installed by Codespaces. To confirm this, you can use `! python --version` in a notebook code cell.
 
 ## Cloud IDE Reminders
@@ -111,6 +116,9 @@ To save time in this process, the IT team suggested an ML system that detects in
 - The text for the Home page was taken from Wikipedia Article A.
 - Instructions on how to implement form validation on the Sign-Up page were taken from [Specific YouTube Tutorial](https://www.youtube.com/).
 - The icons in the footer were taken from [Font Awesome](https://fontawesome.com/).
+
+Wine types: `inputs/datasets/raw/wine_types.csv` This data was created using the little course in Wine Tasting and was used to verify the ouputs of the ML model.
+Williams, D (2013). A Little course in... Wine Tasting. DK Ltd. London
 
 ### Media
 
