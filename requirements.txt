@@ -13,3 +13,7 @@ imbalanced-learn==0.11.0
 xgboost==1.7.6
 protobuf>=3.20.3,<5.0.0dev
 huggingface_hub>=0.19.3,<1.0
+wordcloud-1.9.4
+missingno-0.5.2
+category_encoders-2.8.1 scikit-learn-1.7.0
+Unidecode-1.4.0 
