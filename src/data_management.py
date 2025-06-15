@@ -23,6 +23,4 @@ def load_pkl_file(file_path):
 
 
 def load_assets(*path_parts):
-
-    project_root = os.path.dirname(os.path.abspath(__file__))
-    return os.path.join(project_root, *path_parts)
+    return os.path.join(*path_parts)
