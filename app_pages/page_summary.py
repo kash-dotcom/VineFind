@@ -99,7 +99,7 @@ def user_embeddings(user_input):
     """
     model = SentenceTransformer('all-MiniLM-L6-v2')
     x_train = load_pkl_file(
-        'VineFind_v1/outputs/datasets/encoded/train/model_b/'
+        'VineFind/VineFind_v1/outputs/datasets/encoded/train/model_b/'
         'embeddings_train_model_b.pkl'
     )
     user_input_embedding = model.encode([user_input])
@@ -123,7 +123,7 @@ def compute(similarities_df):
     input.
     """
     x_train_original = load_pkl_file(
-        'VineFind/VineFind_v1/outputs/datasets/cleaned//display_dataframe.pkl'
+        'VineFind/VineFind_v1/outputs/datasets/cleaned/display_dataframe.pkl'
     )
     st.subheader("Top 10 Recommendations")
     st.write("Double click on a row to see the full description.")
