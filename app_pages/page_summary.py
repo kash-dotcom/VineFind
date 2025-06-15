@@ -12,9 +12,10 @@ def page_summary_body():
     It provides an overview of the project, including objectives, data sources,
     and key findings.
     """
+
     st.image(
-        "assets/d-a-v-i-d-s-o-n-l-u-n-a-hupBI0Doj9o-unsplash.jpg",
-        caption="Photo by David Sonluna on Unsplash",
+        "VineFind/assets/d-a-v-i-d-s-o-n-l-u-n-a-hupBI0Doj9o-unsplash.jpg",
+        caption="Photo taken by David Luna on Unsplash"
     )
 
     st.title("Project Summary")
@@ -28,25 +29,18 @@ def page_summary_body():
         "Describe your favorite wine, think"
     )
 
-    flavor_image = load_assets(
-        "assets",
-        (
-            "fruit-flavors-red-white-wine-"
-            "folly-infographic.jpg"
-        )
-    )
-    st.image(flavor_image, caption="Created by Folly Wine")
+    st.image("VineFind/assets/fruit-flavors-red-white-wine-folly-infographic.jpg", caption="Created by Folly Wine")
 
     st.subheader("How to Use This Tool")
 
-    # st.markdown(
-    #     "1. **Input**: You describe your favorite wine.\n"
-    #     "2. **Embedding**: The input is converted into a numerical "
-    #     "embedding using a pre-trained model.\n"
-    #     "3. **Similarity Calculation**: The embedding is compared "
-    #     "against a dataset of wine reviews to find the most similar wines.\n"
-    #     "4. **Recommendations**: The top 10 similar wines are displayed."
-    # )
+    st.markdown(
+        "1. **Input**: You describe your favorite wine.\n"
+        "2. **Embedding**: The input is converted into a numerical "
+        "embedding using a pre-trained model.\n"
+        "3. **Similarity Calculation**: The embedding is compared "
+        "against a dataset of wine reviews to find the most similar wines.\n"
+        "4. **Recommendations**: The top 10 similar wines are displayed."
+    )
 
     st.write(
         "Write a few sentences about your favorite wine, "
