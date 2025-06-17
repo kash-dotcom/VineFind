@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
 from sentence_transformers import SentenceTransformer
-from sklearn.metrics.pairwise import cosine_similarity
-from src.data_management import load_pkl_file, load_assets
+from src.data_management import load_pkl_file
+from sklearn.neighbors import NearestNeighbors
 import time
 
 
@@ -13,10 +13,10 @@ def page_summary_body():
     and key findings.
     """
 
-    st.image(
-        "VineFind/assets/d-a-v-i-d-s-o-n-l-u-n-a-hupBI0Doj9o-unsplash.jpg",
-        caption="Photo taken by David Luna on Unsplash"
-    )
+    # st.image(
+    #     "VineFind/assets/d-a-v-i-d-s-o-n-l-u-n-a-hupBI0Doj9o-unsplash.jpg",
+    #     caption="Photo taken by David Luna on Unsplash"
+    # )
 
     st.title("Project Summary")
 
@@ -29,7 +29,10 @@ def page_summary_body():
         "Describe your favorite wine, think"
     )
 
-    st.image("VineFind/assets/fruit-flavors-red-white-wine-folly-infographic.jpg", caption="Created by Folly Wine")
+    # st.image(
+    #     "VineFind/assets/fruit-flavors-red-white-wine-folly-infographic.jpg",
+    #     caption="Created by Folly Wine"
+    # )
 
     st.subheader("How to Use This Tool")
 
@@ -98,20 +101,25 @@ def user_embeddings(user_input):
     In a real application, this would call an embedding model.
     """
     model = SentenceTransformer('all-MiniLM-L6-v2')
-    x_train = load_pkl_file(
-        'VineFind_v1/outputs/datasets/encoded/train/model_b/'
-        'embeddings_train_model_b.pkl'
+    df = load_pkl_file(
+        'VineFind_v2/outputs/datasets/encoded/encoded_features.pkl'
     )
-    user_input_embedding = model.encode([user_input])
-    x_train_embed_col = [
-        em for em in x_train.columns if em.startswith('embedding')
-    ]
-    x_train_embed = x_train[x_train_embed_col].values.tolist()
-    similarities = cosine_similarity(user_input_embedding, x_train_embed)
-    similarities = similarities.flatten()
+    user_input = model.encode([user_input])
+    x_embed_col = [col for col in df.columns if col.startswith('embedding')]
+    x_embed = df[x_embed_col].values
+
+    nn = NearestNeighbors(n_neighbors=10, metric='cosine', algorithm='auto')
+
+    nn.fit(x_embed)
+
+    distances, indices = nn.kneighbors(user_input)
+    # Convert cosine distances to similarities
+    similarities = 1 - distances.flatten()
+    indices = indices.flatten()
+
     similarities_df = pd.DataFrame({
         'similarity': similarities,
-        'index': x_train.index
+        'index': df.index[indices]
     })
     return similarities_df.sort_values(by='similarity',
                                        ascending=False)
@@ -122,17 +130,18 @@ def compute(similarities_df):
     This function displays the top 10 recommendations based on the user's
     input.
     """
-    x_train_original = load_pkl_file(
-        'VineFind/VineFind_v1/outputs/datasets/cleaned//display_dataframe.pkl'
+    df_original = load_pkl_file(
+        'VineFind_v2/outputs/datasets/cleaned/display_dataframe.pkl'
     )
     st.subheader("Top 10 Recommendations")
     st.write("Double click on a row to see the full description.")
     top_10 = 10
     top_similarities = similarities_df.sort_values(by='similarity',
-                                                   ascending=False).head(
-                                                       top_10)
+                                                   ascending=False).head(top_10)
+
     top_similarities = top_similarities['index'].values
-    top_wines = x_train_original.loc[top_similarities]
+
+    top_wines = df_original.loc[top_similarities]
     return top_wines
 
 
@@ -154,9 +163,9 @@ def display_recommendations(top_wines):
     DataFrame.
     """
     top_wines = clean_column_names(top_wines)
-    top_wines = top_wines[['Winery', 'Description', 'Variety', 'Country',
+    top_wines = top_wines[['Winery', 'Description', 'Variety',
                            'Province']].head(10)
-    #'Price' to be added later
+    # 'Price' to be added later
     recommendations = st.dataframe(top_wines, height=500, hide_index=True,
                                    )
     return recommendations
