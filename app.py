@@ -1,5 +1,8 @@
 import streamlit as st
 from app_pages.multipage import MultiPage
+from dotenv import load_dotenv
+import cloudinary
+import os
 
 # load pages scripts
 
@@ -29,5 +32,17 @@ app.add_page("The Pipeline", the_project_body)
 # app.add_page("ML: Prospect Churn", page_predict_churn_body)
 # app.add_page("ML: Prospect Tenure", page_predict_tenure_body)
 # app.add_page("ML: Cluster Analysis", page_cluster_body)
+
+load_dotenv()
+
+cloud_name = os.getenv("CLOUDINARY_CLOUD_NAME")
+api_key = os.getenv("CLOUDINARY_API_KEY")
+api_secret = os.getenv("CLOUDINARY_API_SECRET")
+
+cloudinary.config(
+    cloud_name=cloud_name,
+    api_key=api_key,
+    api_secret=api_secret
+)
 
 app.run()  # Run the  app

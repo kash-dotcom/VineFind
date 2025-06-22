@@ -14,9 +14,11 @@ def the_project_body():
     and key findings.
     """
 
-    st.image(os.path.abspath(
-        "assets/d-a-v-i-d-s-o-n-l-u-n-a-hupBI0Doj9o-unsplash.jpg",
-    ))
+    img_life_too_short = (
+        "https://res.cloudinary.com/dybts6jei/image/upload/"
+        "v1750626554/d-a-v-i-d-s-o-n-l-u-n-a-hupBI0Doj9o-unsplash_qdjyb4.jpg"
+        )
+    st.image(img_life_too_short)
     st.caption("Photo taken by David Luna on Unsplash")
 
     st.title("Uncork the Unexpected: Discover Your Next Favorite Wine")
@@ -34,11 +36,14 @@ def the_project_body():
                 "recommendations. We’re working on it, so stay tuned "
                 "for future updates!"
                 )
+    img_flavor_glass = (
+        "https://res.cloudinary.com/dybts6jei/image/"
+        "upload/v1750626536/fruit-flavors-red-white-wine-folly-infographic"
+        "_ufuzco.jpg"
+        )
+    st.image(img_flavor_glass)
+    st.caption("A red and wine flavor chart created by Folly Wine")
 
-    st.image(os.path.abspath(
-        "assets/fruit-flavors-red-white-wine-folly-infographic.jpg",
-    ))
-    st.caption("Created by Folly Wine")
     st.subheader("How to Use This Tool")
 
     st.markdown(
@@ -56,8 +61,12 @@ def the_project_body():
         "The more detailed your description, the better the recommendations. "
     )
     st.write("For example...")
-    st.image(os.path.abspath(
-        "assets/wine_quote.png"))
+    img_wine_example = (
+        "https://res.cloudinary.com/dybts6jei/image/upload/"
+        "v1750626539/wine_quote1_ov6esv.png")
+    st.image(img_wine_example,
+             caption="An example wine description from a wine lover",
+             )
 
     with st.form(
         key="user_input", clear_on_submit=False, enter_to_submit=True

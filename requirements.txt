@@ -3,9 +3,10 @@ numpy
 scikit_learn
 sentence_transformers==4.1.0
 streamlit==1.40.2
-protobuf>=3.20.3,<5.0.0dev
+# protobuf>=3.20.3,<5.0.0dev
 wordcloud==1.9.4
-Unidecode==1.4.0 
 torch==2.2.2+cpu
+cloudinary-1.44.1
+python-dotenv-1.1.0
 # Co-pilot solution for heavy packages
 --extra-index-url https://download.pytorch.org/whl/cpu
