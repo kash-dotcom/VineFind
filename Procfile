@@ -1,1 +1,1 @@
-web: python3 VineFind/download_assets.py && streamlit run VineFind/app.py
+web: python VineFind/download_assets.py && streamlit run VineFind/app.py
