@@ -27,8 +27,13 @@ def the_project_body():
     )
     st.write(
         "This tool helps you discover new wines based on what you like. "
-        "Describe your favorite wine, think"
+        "Describe your favorite wine, and it will suggest similar wines "
     )
+
+    st.markdown("Right now, you can’t pick a price range for your wine "
+                "recommendations. We’re working on it, so stay tuned "
+                "for future updates!"
+                )
 
     st.image(os.path.abspath(
         "assets/fruit-flavors-red-white-wine-folly-infographic.jpg",
@@ -50,7 +55,7 @@ def the_project_body():
         "and the tool will suggest similar wines based on your description. "
         "The more detailed your description, the better the recommendations. "
     )
-    st.write("For example..")
+    st.write("For example...")
     st.image(os.path.abspath(
         "assets/wine_quote.png"))
 
@@ -226,7 +231,7 @@ def display_recommendations(top_wines):
     top_wines = top_wines.reset_index()
     if 'id' in top_wines.columns:
         top_wines = top_wines.drop(columns=['id'])
-    top_wines = top_wines[['Winery', 'Description', 'Variety',
+    top_wines = top_wines[['Title', 'Description', 'Variety',
                           'Province', 'Buyer Price', 'Rating']].head(10)
     # 'Price' to be added later
     top_wines.index = top_wines.index + 1
