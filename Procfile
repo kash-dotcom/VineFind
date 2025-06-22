@@ -1,1 +1,1 @@
-web: streamlit run VineFind/app.py
+web: streamlit run app.py
