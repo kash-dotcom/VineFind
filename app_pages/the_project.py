@@ -2,24 +2,25 @@ import streamlit as st
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 from src.data_management import load_pkl_file
-from sklearn.neighbors import NearestNeighbors
+from sklearn.metrics.pairwise import cosine_similarity
+import os
 import time
 
 
-def page_summary_body():
+def the_project_body():
     """
     This function renders the content for the "Project Summary" page.
     It provides an overview of the project, including objectives, data sources,
     and key findings.
     """
 
-    # st.image(
-    #     "VineFind/assets/d-a-v-i-d-s-o-n-l-u-n-a-hupBI0Doj9o-unsplash.jpg",
-    #     caption="Photo taken by David Luna on Unsplash"
-    # )
+    st.image(os.path.abspath(
+        "assets/d-a-v-i-d-s-o-n-l-u-n-a-hupBI0Doj9o-unsplash.jpg",
+    ))
+    st.caption("Photo taken by David Luna on Unsplash")
 
-    st.title("Project Summary")
-
+    st.title("Uncork the Unexpected: Discover Your Next Favorite Wine")
+    sidebar_body()
     st.write(
         "Life’s too short for a bad bottle of wine — and too short to keep "
         "grabbing the same one just because it’s familiar. "
@@ -29,11 +30,10 @@ def page_summary_body():
         "Describe your favorite wine, think"
     )
 
-    # st.image(
-    #     "VineFind/assets/fruit-flavors-red-white-wine-folly-infographic.jpg",
-    #     caption="Created by Folly Wine"
-    # )
-
+    st.image(os.path.abspath(
+        "assets/fruit-flavors-red-white-wine-folly-infographic.jpg",
+    ))
+    st.caption("Created by Folly Wine")
     st.subheader("How to Use This Tool")
 
     st.markdown(
@@ -50,16 +50,12 @@ def page_summary_body():
         "and the tool will suggest similar wines based on your description. "
         "The more detailed your description, the better the recommendations. "
     )
-
-    st.markdown(
-        "*e.g. I like white wine, especially Sauvignon Blanc* "
-        "*from New Zealand. I enjoy wines that are fresh and fruity,* "
-        "*with a hint of citrus. I prefer wines that are not too sweet* "
-        "*and have a crisp finish.* "
-    )
+    st.write("For example..")
+    st.image(os.path.abspath(
+        "assets/wine_quote.png"))
 
     with st.form(
-        key="user_input", clear_on_submit=True, enter_to_submit=False
+        key="user_input", clear_on_submit=False, enter_to_submit=True
     ):
 
         user_input = st.text_area(
@@ -75,7 +71,7 @@ def page_summary_body():
                 st.success("Your recommendations are on their way!")
             try:
                 similarities_df = user_embeddings(user_input)
-                top_wines = compute(similarities_df)
+                top_wines = compute(similarities_df, user_input)
                 display_recommendations(top_wines)
             except Exception as e:
                 st.error(
@@ -95,6 +91,73 @@ def page_summary_body():
     return user_input
 
 
+def sidebar_body():
+    """
+    This function renders the sidebar content for the "Project Summary" page.
+    It provides a brief overview of the project and its objectives.
+    """
+    st.sidebar.title("Rating & Price Guide")
+
+    df_quality = pd.DataFrame({
+        'Key': [
+            '🍷',
+            '🍷🍷',
+            '🍷🍷🍷',
+            '🍷🍷🍷🍷',
+            '🍷🍷🍷🍷🍷'
+        ],
+        'Quality': [
+            'Fair to poor quality, not recommended',
+            'Good quality, drinkable',
+            'Very good quality, worth trying',
+            'Excellent quality, highly recommended',
+            'Exceptional quality, a must-try'
+        ],
+        'Wine Ranking': [
+            'Below 80',
+            '80 - 85',
+            '85 - 90',
+            '90 - 95',
+            'Over 95'
+        ],
+
+    })
+    st.sidebar.dataframe(df_quality)
+
+    price_buyer_df = pd.DataFrame({
+        'Key': [
+            '💲',
+            '💲💲',
+            '💲💲',
+            '💲💲',
+            '💲💲💲',
+            '💲💲💲',
+            '💲💲💲💲',
+        ],
+        'Buyers': [
+            'Casual drinkers, everyday wines',
+            'Budget-conscious enthusiasts',
+            'Dinner party hosts, wine-lovers',
+            'Wine enthusiasts seeking quality',
+            'Gifts, special occasions, fine dining',
+            'Serious collectors, high-end gifts',
+            'Investors, connoisseurs, and collectors',
+        ],
+
+        'Price Range': [
+            "Below $9",
+            "$10 - $19",
+            "$20 - $49",
+            "$50 - $99",
+            "$100 - $499",
+            "$500 - $999",
+            "$,1000 - $2999"
+        ]
+
+    })
+    st.sidebar.dataframe(price_buyer_df)
+
+
 def user_embeddings(user_input):
     """
     This function generates embeddings for the user input.
@@ -102,30 +165,25 @@ def user_embeddings(user_input):
     """
     model = SentenceTransformer('all-MiniLM-L6-v2')
     df = load_pkl_file(
-        'VineFind_v2/outputs/datasets/encoded/encoded_features.pkl'
+        'VineFind_v2/outputs/datasets/encoded/description.pkl'
     )
-    user_input = model.encode([user_input])
+    user_input_embedding = model.encode([user_input])
+
     x_embed_col = [col for col in df.columns if col.startswith('embedding')]
     x_embed = df[x_embed_col].values
 
-    nn = NearestNeighbors(n_neighbors=10, metric='cosine', algorithm='auto')
+    similarities = cosine_similarity(user_input_embedding, x_embed)
 
-    nn.fit(x_embed)
-
-    distances, indices = nn.kneighbors(user_input)
-    # Convert cosine distances to similarities
-    similarities = 1 - distances.flatten()
-    indices = indices.flatten()
-
+    similarities = similarities.flatten()
     similarities_df = pd.DataFrame({
         'similarity': similarities,
-        'index': df.index[indices]
+        'index': df.index
     })
-    return similarities_df.sort_values(by='similarity',
-                                       ascending=False)
+
+    return similarities_df
 
 
-def compute(similarities_df):
+def compute(similarities_df, user_input):
     """
     This function displays the top 10 recommendations based on the user's
     input.
@@ -134,10 +192,12 @@ def compute(similarities_df):
         'VineFind_v2/outputs/datasets/cleaned/display_dataframe.pkl'
     )
     st.subheader("Top 10 Recommendations")
-    st.write("Double click on a row to see the full description.")
+    st.write(user_input)
     top_10 = 10
-    top_similarities = similarities_df.sort_values(by='similarity',
-                                                   ascending=False).head(top_10)
+    top_similarities = (
+        similarities_df.sort_values(by='similarity', ascending=False)
+        .head(top_10)
+    )
 
     top_similarities = top_similarities['index'].values
 
@@ -163,9 +223,14 @@ def display_recommendations(top_wines):
     DataFrame.
     """
     top_wines = clean_column_names(top_wines)
+    top_wines = top_wines.reset_index()
+    if 'id' in top_wines.columns:
+        top_wines = top_wines.drop(columns=['id'])
     top_wines = top_wines[['Winery', 'Description', 'Variety',
-                           'Province']].head(10)
+                          'Province', 'Buyer Price', 'Rating']].head(10)
     # 'Price' to be added later
-    recommendations = st.dataframe(top_wines, height=500, hide_index=True,
-                                   )
+    top_wines.index = top_wines.index + 1
+    recommendations = st.table(top_wines)
+
+    print(f"Recommendations: {recommendations}")
     return recommendations

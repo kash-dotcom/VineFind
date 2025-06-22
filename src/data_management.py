@@ -22,5 +22,5 @@ def load_pkl_file(file_path):
         return None
 
 
-def load_assets(*path_parts):
-    return os.path.join(*path_parts)
+# def load_assets(*path_parts):
+#     return os.path.join(*path_parts)
