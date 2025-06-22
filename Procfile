@@ -1,2 +1,2 @@
-web: sh setup.sh && streamlit run app.py
-web: python download_assets.py && streamlit run app.py
+web: sh VineFind/setup.sh && streamlit run VineFind/app.py
+web: python VineFind/download_assets.py && VineFind/streamlit run app.py
