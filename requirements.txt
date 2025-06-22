@@ -7,6 +7,6 @@ streamlit==1.40.2
 wordcloud==1.9.4
 torch==2.2.2+cpu
 cloudinary
-python-dotenv-1.1.0
+python-dotenv
 # Co-pilot solution for heavy packages
 --extra-index-url https://download.pytorch.org/whl/cpu
