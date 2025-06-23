@@ -194,12 +194,11 @@ def user_embeddings(user_input):
             destination_file_name="VineFind_v2/outputs/datasets/encoded/"
                                 "description.pkl"
         )
-    except Exception as e:
+    except Exception:
         st.error(
-            f"🍷 Oops! We couldn't fetch the wine dataset needed to "
-            f"recommend your perfect bottle. "
-            f"Please try again later \n\n"
-            f"Error details: {e}"
+            "🍷 Oops! We couldn't fetch the wine dataset needed to "
+            "recommend your perfect bottle. "
+            "Please try again later"
         )
         return None
 
@@ -231,12 +230,11 @@ def compute(similarities_df, user_input):
             destination_file_name="VineFind_v2/outputs/datasets/cleaned/"
                                   "display_dataframe.pkl"
         )
-    except Exception as e:
+    except Exception:
         st.error(
-            f"🍷 Oops! We couldn't fetch the wine dataset needed to recommend"
-            f" your perfect bottle. "
-            f"Please try again later \n\n"
-            f"Error details: {e}"
+            "🍷 Oops! We couldn't fetch the wine dataset needed to "
+            "recommend your perfect bottle. "
+            "Please try again later"
         )
         return None
 

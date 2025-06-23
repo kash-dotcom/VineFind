@@ -3,6 +3,7 @@ from app_pages.multipage import MultiPage
 from dotenv import load_dotenv
 import cloudinary
 import os
+import json
 
 # load pages scripts
 
@@ -44,5 +45,11 @@ cloudinary.config(
     api_key=api_key,
     api_secret=api_secret
 )
+
+if "GOOGLE_CREDENTIALS_JSON" in os.environ:
+    with open("gcs_key_vinefind.json", "w") as f:
+        f.write(os.environ["GOOGLE_CREDENTIALS_JSON"])
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "gcs_key_vinefind.json"
+
 
 app.run()  # Run the  app
