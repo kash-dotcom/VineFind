@@ -5,6 +5,15 @@ from src.data_management import load_pkl_file
 from sklearn.metrics.pairwise import cosine_similarity
 import os
 import time
+from google.cloud import storage
+
+
+def download_files_from_gcs(bucket_name, source_blob_name,
+                            destination_file_name):
+    client = storage.Client()
+    bucket = client.bucket(bucket_name)
+    blob = bucket.blob(source_blob_name)
+    blob.download_to_filename(destination_file_name)
 
 
 def the_project_body():
@@ -178,9 +187,14 @@ def user_embeddings(user_input):
     In a real application, this would call an embedding model.
     """
     model = SentenceTransformer('all-MiniLM-L6-v2')
-    df = load_pkl_file(
-        'VineFind_v2/outputs/datasets/encoded/description.pkl'
+
+    df = download_files_from_gcs(
+        bucket_name="vinefind",
+        source_blob_name="vinefind/datasets/encoded/description.pkl",
+        destination_file_name="VineFind_v2/outputs/datasets/encoded/"
+                              "description.pkl"
     )
+
     user_input_embedding = model.encode([user_input])
 
     x_embed_col = [col for col in df.columns if col.startswith('embedding')]
@@ -202,9 +216,13 @@ def compute(similarities_df, user_input):
     This function displays the top 10 recommendations based on the user's
     input.
     """
-    df_original = load_pkl_file(
-        'VineFind_v2/outputs/datasets/cleaned/display_dataframe.pkl'
+    df_original = download_files_from_gcs(
+        bucket_name="vinefind",
+        source_blob_name="vinefind/datasets/cleaned/display_dataframe.pkl",
+        destination_file_name="VineFind_v2/outputs/datasets/cleaned/"
+                              "display_dataframe.pkl"
     )
+
     st.subheader("Top 10 Recommendations")
     st.write(user_input)
     top_10 = 10

@@ -7,5 +7,6 @@ streamlit==1.40.2
 torch==2.2.2+cpu
 cloudinary
 python-dotenv
+google-cloud-storage
 # Co-pilot solution for heavy packages
 --extra-index-url https://download.pytorch.org/whl/cpu
