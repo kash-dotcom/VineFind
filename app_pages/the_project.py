@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 from sentence_transformers import SentenceTransformer
-from src.data_management import load_pkl_file
 from sklearn.metrics.pairwise import cosine_similarity
 import os
 import time
@@ -188,12 +187,21 @@ def user_embeddings(user_input):
     """
     model = SentenceTransformer('all-MiniLM-L6-v2')
 
-    df = download_files_from_gcs(
-        bucket_name="vinefind",
-        source_blob_name="vinefind/datasets/encoded/description.pkl",
-        destination_file_name="VineFind_v2/outputs/datasets/encoded/"
-                              "description.pkl"
-    )
+    try:
+        df = download_files_from_gcs(
+            bucket_name="vinefind",
+            source_blob_name="datasets/encoded/description.pkl",
+            destination_file_name="VineFind_v2/outputs/datasets/encoded/"
+                                "description.pkl"
+        )
+    except Exception as e:
+        st.error(
+            f"🍷 Oops! We couldn't fetch the wine dataset needed to "
+            f"recommend your perfect bottle. "
+            f"Please try again later \n\n"
+            f"Error details: {e}"
+        )
+        return None
 
     user_input_embedding = model.encode([user_input])
 
@@ -216,12 +224,21 @@ def compute(similarities_df, user_input):
     This function displays the top 10 recommendations based on the user's
     input.
     """
-    df_original = download_files_from_gcs(
-        bucket_name="vinefind",
-        source_blob_name="vinefind/datasets/cleaned/display_dataframe.pkl",
-        destination_file_name="VineFind_v2/outputs/datasets/cleaned/"
-                              "display_dataframe.pkl"
-    )
+    try:
+        df_original = download_files_from_gcs(
+            bucket_name="vinefind",
+            source_blob_name="datasets/cleaned/display_dataframe.pkl",
+            destination_file_name="VineFind_v2/outputs/datasets/cleaned/"
+                                  "display_dataframe.pkl"
+        )
+    except Exception as e:
+        st.error(
+            f"🍷 Oops! We couldn't fetch the wine dataset needed to recommend"
+            f" your perfect bottle. "
+            f"Please try again later \n\n"
+            f"Error details: {e}"
+        )
+        return None
 
     st.subheader("Top 10 Recommendations")
     st.write(user_input)
