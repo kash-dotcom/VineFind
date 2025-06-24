@@ -11,12 +11,62 @@ from google.cloud import storage
 import json
 
 
+# code sourced from Gemini
 def download_files_from_gcs(bucket_name, source_blob_name,
                             destination_file_name):
-    client = storage.Client()
-    bucket = client.bucket(bucket_name)
-    blob = bucket.blob(source_blob_name)
-    blob.download_to_filename(destination_file_name)
+    try:
+        credentials = None
+        storage_client = None # Initialise to None
+
+        # 1. Try to get credentials from Streamlit secrets (for local development/Streamlit Cloud)
+        if "connections" in st.secrets and "gcs" in st.secrets["connections"]:
+            st.info("Using credentials from Streamlit secrets (local/Streamlit Cloud).")
+            credentials_info = st.secrets["connections"]["gcs"]
+            storage_client = storage.Client.from_service_account_info(credentials_info)
+        # 2. Fallback to Heroku environment variable
+        elif "GCP_SERVICE_ACCOUNT_KEY" in os.environ:
+            st.info("Using credentials from GCP_SERVICE_ACCOUNT_KEY environment variable (Heroku).")
+            encoded_key = os.environ["GCP_SERVICE_ACCOUNT_KEY"]
+            try:
+                decoded_key_json = base64.b64decode(encoded_key).decode('utf-8')
+                credentials_info = json.loads(decoded_key_json)
+                storage_client = storage.Client.from_service_account_info(credentials_info)
+            except (base64.binascii.Error, json.JSONDecodeError) as decode_error:
+                st.error(f"Error decoding or parsing GCP_SERVICE_ACCOUNT_KEY: {decode_error}")
+                return None
+        else:
+            st.error("GCS credentials not found in Streamlit secrets or environment variables.")
+            st.stop() # Stop the app if no credentials are found
+            return None
+
+        if storage_client is None: # Should not happen if st.stop() is used
+            st.error("Failed to initialise Google Cloud Storage client.")
+            return None
+
+        # Ensure the local directory exists before downloading (this is for the Heroku dyno's temporary storage)
+        destination_dir = os.path.dirname(destination_file_name)
+        if destination_dir and not os.path.exists(destination_dir):
+            st.info(f"Creating local directory on dyno: {destination_dir}")
+            os.makedirs(destination_dir, exist_ok=True)
+
+        bucket = storage_client.bucket(bucket_name)
+        blob = bucket.blob(source_blob_name)
+
+        if not blob.exists():
+            st.error(f"Error: Blob '{source_blob_name}' does not exist in bucket '{bucket_name}'. Please check the file path in GCS.")
+            return None
+
+        st.info(f"Attempting to download '{source_blob_name}' to '{destination_file_name}' on dyno...")
+        blob.download_to_filename(destination_file_name)
+        st.success(f"File '{source_blob_name}' downloaded to '{destination_file_name}' successfully on dyno!")
+        return destination_file_name
+    except Exception as e:
+        st.error(f"An unexpected error occurred during GCS download: {e}")
+        st.exception(e) # Show full traceback for debugging
+        return None
+
+
+
 
 
 def the_project_body():
