@@ -1,3 +1,5 @@
 kaggle.json
 .env
 gcs_key_vinefind.json
+secrets.toml
+.streamlit/

@@ -1,9 +1,9 @@
-import streamlit as st
+# import streamlit as st
 from app_pages.multipage import MultiPage
 from dotenv import load_dotenv
 import cloudinary
 import os
-import json
+# import json
 
 # load pages scripts
 
@@ -13,7 +13,7 @@ import json
 from app_pages.the_project import the_project_body
 # from app_pages.project_summary import project_summary_body
 
-# from app_pages.page_churned_customer_study 
+# from app_pages.page_churned_customer_study
 # import page_churned_customer_study_body
 # from app_pages.page_prospect import page_prospect_body
 # from app_pages.page_project_hypothesis import page_project_hypothesis_body
@@ -21,7 +21,7 @@ from app_pages.the_project import the_project_body
 # from app_pages.page_predict_tenure import page_predict_tenure_body
 # from app_pages.page_cluster import page_cluster_body
 
-app = MultiPage(app_name="VineFind")  # Create an instance of the app 
+app = MultiPage(app_name="VineFind")  # Create an instance of the app
 
 # Add your app pages here using .add_page()
 app.add_page("The Pipeline", the_project_body)
@@ -46,10 +46,9 @@ cloudinary.config(
     api_secret=api_secret
 )
 
-if "GOOGLE_CREDENTIALS_JSON" in os.environ:
-    with open("gcs_key_vinefind.json", "w") as f:
-        f.write(os.environ["GOOGLE_CREDENTIALS_JSON"])
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "gcs_key_vinefind.json"
-
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = (
+    r"C:/Users/purpk/OneDrive/Documents/Coding/VineFind/VineFind/"
+    r"gcs_key_vinefind.json"
+)
 
 app.run()  # Run the  app

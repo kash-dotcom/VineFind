@@ -2,9 +2,13 @@ import streamlit as st
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
+from src.data_management import load_pkl_file
 import os
+import io
+import base64
 import time
 from google.cloud import storage
+import json
 
 
 def download_files_from_gcs(bucket_name, source_blob_name,
@@ -188,17 +192,22 @@ def user_embeddings(user_input):
     model = SentenceTransformer('all-MiniLM-L6-v2')
 
     try:
-        df = download_files_from_gcs(
+        download_files_from_gcs(
             bucket_name="vinefind",
             source_blob_name="datasets/encoded/description.pkl",
-            destination_file_name="VineFind_v2/outputs/datasets/encoded/"
-                                "description.pkl"
+            destination_file_name=(
+                "VineFind_v2/outputs/datasets/encoded/description.pkl"
+            )
         )
-    except Exception:
+        df = load_pkl_file(
+            "VineFind_v2/outputs/datasets/encoded/description.pkl"
+        )
+    except Exception as e:
         st.error(
-            "🍷 Oops! We couldn't fetch the wine dataset needed to "
-            "recommend your perfect bottle. "
-            "Please try again later"
+            f"🍷 Oops! We couldn't fetch the wine dataset needed to "
+            f"recommend your perfect bottle. "
+            f"Please try again later"
+            f"Error: {e}"
         )
         return None
 
@@ -223,19 +232,29 @@ def compute(similarities_df, user_input):
     This function displays the top 10 recommendations based on the user's
     input.
     """
+    local_path = (
+        "VineFind_v2/outputs/datasets/cleaned/"
+        "display_dataframe.pkl"
+    )
+
     try:
         df_original = download_files_from_gcs(
             bucket_name="vinefind",
-            source_blob_name="datasets/cleaned/display_dataframe.pkl",
-            destination_file_name="VineFind_v2/outputs/datasets/cleaned/"
-                                  "display_dataframe.pkl"
+            source_blob_name=(
+                "datasets/cleaned/display_dataframe.pkl"
+            ),
+            destination_file_name=local_path
         )
+
+        df_original = load_pkl_file(local_path)
+
     except Exception:
         st.error(
             "🍷 Oops! We couldn't fetch the wine dataset needed to "
             "recommend your perfect bottle. "
             "Please try again later"
         )
+        st.write("Error: Unable to load the wine dataset.")
         return None
 
     st.subheader("Top 10 Recommendations")
@@ -249,6 +268,7 @@ def compute(similarities_df, user_input):
     top_similarities = top_similarities['index'].values
 
     top_wines = df_original.loc[top_similarities]
+
     return top_wines
 
 
@@ -261,6 +281,7 @@ def clean_column_names(top_wines):
         (col[0] if isinstance(col, tuple) else col).title()
         for col in top_wines.columns
     ]
+
     return top_wines
 
 
