@@ -61,7 +61,7 @@ def the_project_body():
     )
     st.error("""
 For example...\n
-"I like white wine, especially Sauvignon Blanc from New Zeland. I enjoy wines
+"I like white wine, especially Sauvignon Blanc from New Zealand. I enjoy wines
 that are fresh and fruity, with a hint of citrus. I prefer wines that are not
 too sweet and have a crisp finish."
              """)
