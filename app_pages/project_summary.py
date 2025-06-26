@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from src.data_management import load_pkl_file
+from src.data_management import load_file
 
 
 def project_summary_body():
