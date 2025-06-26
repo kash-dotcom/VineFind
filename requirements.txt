@@ -1,22 +1,12 @@
-joblib==1.5.1
-numpy<2.0
 pandas==2.3.0
+numpy
 scikit_learn
 sentence_transformers==4.1.0
 streamlit==1.40.2
-matplotlib==3.8.0
-seaborn==0.13.2
-plotly==5.17.0
-feature-engine==1.6.1
-imbalanced-learn==0.11.0
-xgboost==1.7.6
-protobuf>=3.20.3,<5.0.0dev
-huggingface_hub>=0.19.3,<1.0
-wordcloud==1.9.4
-missingno==0.5.2
-category_encoders==2.8.1;
-Unidecode==1.4.0 
-jupyterlab==4.4.3
-notebook==7.4.3
-ipywidgets==8.1.7
-ydata_profiling
+# protobuf>=3.20.3,<5.0.0dev
+torch==2.2.2+cpu
+cloudinary
+python-dotenv
+google-cloud-storage
+# Co-pilot solution for heavy packages
+--extra-index-url https://download.pytorch.org/whl/cpu
