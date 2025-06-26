@@ -9,9 +9,7 @@ class MultiPage:
         self.pages = []
         self.app_name = app_name
 
-        st.set_page_config(
-            page_title=self.app_name,
-            page_icon="🍷") # You may add an icon, to personalize your App
+        # You may add an icon, to personalize your App
         # check links below for additional icons reference
         # https://docs.streamlit.io/en/stable/api.html#streamlit.set_page_config
         # https://twemoji.maxcdn.com/2/test/preview.html
