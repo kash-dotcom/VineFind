@@ -9,10 +9,10 @@ from dotenv import load_dotenv
 import cloudinary
 import os
 # import json
-from app_pages.the_pineline import the_project_body
-from app_pages.data_exploration import data_exploration_page
-# from app_pages.page_summary import page_summary_body
-# from app_pages.project_summary import project_summary_body
+from app_pages.A_the_pineline import the_project_body
+from app_pages.C_data_exploration import data_exploration_page
+from app_pages.D_evaluation import evaluation_body
+# from app_pages.B_project_summary import project_summary_body
 
 
 app = MultiPage(app_name="VineFind ")
@@ -32,6 +32,7 @@ app = MultiPage(app_name="VineFind ")
 # Add your app pages here using .add_page()
 app.add_page("The Pipeline", the_project_body)
 app.add_page("Data Exploration", data_exploration_page)
+app.add_page("Evaluation", evaluation_body)
 # app.add_page("Project Summary", project_summary_body)
 # app.add_page("Customer Base Churn Study", page_churned_customer_study_body)
 # app.add_page("Prospect Churnometer", page_prospect_body)
