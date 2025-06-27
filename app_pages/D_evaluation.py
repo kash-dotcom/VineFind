@@ -48,9 +48,13 @@ def load_cosine_similarity_data():
         download_files_from_gcs(
             bucket_name="vinefind",
             source_blob_name="datasets/evaluation/white_cosine.pkl",
-            destination_file_name="VineFind_v2/outputs/datasets/evaluation/white_cosine.pkl"
+            destination_file_name=(
+                "VineFind_v2/outputs/datasets/evaluation/white_cosine.pkl"
+            )
         )
-        white_cosine = pd.read_pickle("VineFind_v2/outputs/datasets/evaluation/white_cosine.pkl")
+        white_cosine = pd.read_pickle(
+            "VineFind_v2/outputs/datasets/evaluation/white_cosine.pkl"
+        )
     except Exception as e:
         st.error(
             f"🍷 Oops! We couldn't fetch the wine dataset needed to "
@@ -59,7 +63,6 @@ def load_cosine_similarity_data():
         return None
 
     return white_cosine
-
 
     # # Load evaluation data
     # evaluation_data = download_files_from_gcs(
@@ -73,7 +76,8 @@ def load_cosine_similarity_data():
     #     st.dataframe(df)
 
     #     st.subheader("Evaluation Metrics")
-    #     st.write("The model's performance is evaluated using various metrics such as accuracy, precision, recall, and F1-score.")
+    #     st.write("The model's performance is evaluated using various metrics
+    # such as accuracy, precision, recall, and F1-score.")
 
     #     # Display metrics
     #     metrics = {
@@ -88,8 +92,10 @@ def load_cosine_similarity_data():
     #     st.subheader("Insights")
     #     st.write(
     #         "The model shows promising results with an overall accuracy of "
-    #         f"{metrics['Accuracy']:.2f}. Further improvements can be made by "
-    #         "tuning hyperparameters and incorporating more diverse training data."
+    #         f"{metrics['Accuracy']:.2f}. Further
+    # improvements can be made by "
+    #         "tuning hyperparameters and incorporating more
+    #  diverse training data."
     #     )
     # else:
     #     st.error("Failed to load evaluation data.")

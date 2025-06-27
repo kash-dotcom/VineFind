@@ -64,21 +64,90 @@ def data_exploration_page():
     df = load_data()
     if df is not None:
         st.dataframe(df.head())
-    st.markdown("""
-                * **Unnamed: 0**: Numerical numbering of the dataset
-                * **country**: Country of origin
-                * **description**: Textual description of the wine
-                * **points**: Rating points given by Wine Enthusiast
-                * **price**: Price of the wine in USD
-                * **province**: Province within the country
-                * **region_1**: Region within the province
-                * **region_2**: Region within the province
-                * **variety**: Type of grape used
-                * **winery**: Winery that produced the wine
-                * **taster_name**: Name of the taster who reviewed the wine
-                * **taster_twitter_handle**: Twitter handle of the taster
-                * **title**: Name of the wine
-                """)
+
+    st.subheader("Feature Strategy")
+
+    column_strat = pd.DataFrame(
+        {
+            "Column Name": [
+                "Unnamed: 0*",
+                "country",
+                "description",
+                "points",
+                "price",
+                "province",
+                "region_1",
+                "region_2",
+                "variety",
+                "winery",
+                "taster_name",
+                "taster_twitter_handle",
+                "title"
+            ],
+            "Description": [
+                "Numerical numbering of the dataset",
+                "Country of origin",
+                "Textual description of the wine",
+                "Rating points given by Wine Enthusiast",
+                "Price of the wine in USD",
+                "Province within the country",
+                "Region within the province",
+                "Region within the province (optional)",
+                "Type of grape used",
+                "Winery that produced the wine",
+                "Name of the taster who reviewed the wine (optional)",
+                "Twitter handle of the taster (optional)",
+                "Name of the wine"
+            ],
+            "Usage in Display Dataframe": [
+                "No",  # Unnamed: 0*
+                "Yes",  # country
+                "Yes",  # description
+                "Yes",  # points
+                "Yes",  # price
+                "Yes",  # province
+                "No",  # region_1
+                "No",  # region_2
+                "Yes",  # variety
+                "Yes",  # winery
+                "No",  # taster_name
+                "No",  # taster_twitter_handle
+                "Yes"   # title
+            ],
+            "Usage in Algorithm": [
+                "No",  # Unnamed: 0*
+                "No",  # country
+                "Yes",  # description
+                "No",  # points
+                "No",  # price
+                "No",  # province
+                "No",   # region_1
+                "No",   # region_2
+                "No",   # variety
+                "No",   # winery
+                "No",   # taster_name
+                "No",   # taster_twitter_handle
+                "No"    # title
+            ],
+            'Notes': [
+                    'Changed into the index of the dataframe',
+                    '',
+                    'Main feature used in the algorithm',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    'Dropped from dataframe as it added noise',
+                    'Dropped from dataframe as it added noise',
+                    'Dropped from dataframe as it added noise',
+
+            ]
+        }
+        )
+    st.table(column_strat)
 
     # -- Dataset Statistics ---
     st.title("Dataset Statistics")
@@ -101,8 +170,8 @@ def data_exploration_page():
     # --- Missing Values Overview ---
     st.subheader("Missing Values")
     st.markdown(
-        "* Due to the dataset consisting of two different studies with the" 
-        "later introduction of `taster_name`, `taster_twitter_handle`, " 
+        "* Due to the dataset consisting of two different studies with the"
+        "later introduction of `taster_name`, `taster_twitter_handle`, "
         "`title`. Large amount of data is missing."
     )
     # st.dataframe(df.isnull().sum().reset_index(name='missing_count')
@@ -258,7 +327,10 @@ def load_data():
     Load the dataset from a CSV file after downloading it from Google Cloud
     Storage if it doesn't exist.
     """
-    dest_file = "VineFind_v2/outputs/datasets/collection/wine_reviews_collected.csv"
+    dest_file = (
+        "VineFind_v2/outputs/datasets/collection/"
+        "wine_reviews_collected.csv"
+    )
     dtype_dict = {11: str, 12: str, 13: str}
     try:
         download_files_from_gcs(
