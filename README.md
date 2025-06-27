@@ -1,35 +1,28 @@
-# ![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# ![VineFind Logo](https://res.cloudinary.com/dybts6jei/image/upload/v1750626537/logo_xklz9j.png)
 
-## Template Instructions
+# Welcome
 
-Welcome,
-
-This is the Code Institute student template for the Cherry Leaves project option in Predictive Analytics. We have preinstalled all of the tools you need to get started. It's perfectly okay to use this template as the basis for your project submissions. Click the `Use this template` button above to get started.
-
-You can safely delete the Template Instructions section of this README.md file and modify the remaining paragraphs for your own project. Please do read the Template Instructions at least once, though! It contains some important information about the IDE and the extensions we use.
+Life’s too short for a bad bottle of wine — and too short to keep grabbing the same one just because it’s familiar. By describing your favourite bottle of wine this predictive analytics tool will help you find your new favourite bottle.
 
 ## How to use this repo
 
-1. Use this template to create your GitHub project repo
+1. To set up and run this project, follow these steps:
 
-1. In your newly created repo click on the green Code button. 
+1. **Repository Setup**: Begin by using this repository as a template to create your own GitHub project repository.
 
-1. Then, from the Codespaces tab, click Create codespace on main.
+1. **Codespace Creation**: Navigate to your newly created repository on GitHub. Click the green "Code" button and select "Create codespace on main" from the "Codespaces" tab.
 
-1. Wait for the workspace to open. This can take a few minutes.
+1. **Workspace Initialisation**: Allow a few minutes for the Codespace workspace to fully open and initialize.
 
-1. Open a new terminal and `pip3 install -r requirements.txt`
+1. **Dependency Installation**:Install Dependencies: Once the workspace is ready, open a new terminal within Codespaces and run pip install -r requirements.txt to install all necessary project dependencies.
 
-1. Open the jupyter_notebooks directory, and click on the notebook you want to open.
+1.**Access Notebooks**: Open the jupyter_notebooks directory and select the desired notebook you wish to work with.
 
-1. Click the kernel button and choose Python Environments.
+1. **Select Kernel**: Finally, click the kernel button within the notebook interface and choose "Python Environments" to ensure the correct environment is active.
 
-## Large Files
+1. This project uses [Git LFS](https://git-lfs.github.com/) for large files. Please run `git lfs install` after cloning.
 
-This project uses [Git LFS](https://git-lfs.github.com/) for large files.
-Please run `git lfs install` after cloning.
-
-Note that the kernel says Python 3.12.1 as it inherits from the workspace, so it will be Python-3.12.1 as installed by Codespaces. To confirm this, you can use `! python --version` in a notebook code cell.
+*Note that the kernel says Python 3.11 as it inherits from the workspace, so it will be Python-3.11 as installed by Codespaces. To confirm this, you can use `! python --version` in a notebook code cell.*
 
 ## Cloud IDE Reminders
 
@@ -45,43 +38,116 @@ You can now use the `heroku` CLI program - try running `heroku apps` to confirm 
 
 ## Dataset Content
 
-- The dataset is sourced from [Kaggle](https://www.kaggle.com/codeinstitute/cherry-leaves). We then created a fictitious user story where predictive analytics can be applied in a real project in the workplace.
-- The dataset contains +4 thousand images taken from the client's crop fields. The images show healthy cherry leaves and cherry leaves that have powdery mildew, a fungal disease that affects many plant species. The cherry plantation crop is one of the finest products in their portfolio, and the company is concerned about supplying the market with a compromised quality product.
+- The dataset is sourced from [Kaggle](https://www.kaggle.com/datasets/zynicide/wine-reviews). The data was scraped from WineEnthusiast during the week of June 15th, 2017 and subsequent data was retrived November 22nd, 2017. 
+
+**Key Highlights about the data:**
+
+* **Dataset Size:** 169,430 records across 14 variables, totaling 19.4 MiB in memory.After the data preparation stage **14,441** data entries were used to create the model
+
+* **Missing Data:** 21.4% of cells contain missing values, representing 507,872 gaps that require attention.
+
+* **Variable Types:** The dataset comprises 3 numeric variables and 11 text-based features, providing a mix of quantitative and descriptive data.* 
+
+User stories were create based on the roles that often participate within the predictive analytics process. With they main focus being able to select a bottle wine that I would enjoy. 
 
 ## Business Requirements
 
-The cherry plantation crop from Farmy & Foods is facing a challenge where their cherry plantations have been presenting powdery mildew. Currently, the process is manual verification if a given cherry tree contains powdery mildew. An employee spends around 30 minutes in each tree, taking a few samples of tree leaves and verifying visually if the leaf tree is healthy or has powdery mildew. If there is powdery mildew, the employee applies a specific compound to kill the fungus. The time spent applying this compound is 1 minute. The company has thousands of cherry trees located on multiple farms across the country. As a result, this manual process is not scalable due to the time spent in the manual process inspection.
+VineFind aims to help users discover wines that precisely match their taste preferences. It achieves this by analysing both user input and expert wine descriptions. The primary goal is to reduce the time and risk associated with selecting new wines, ensuring users are more likely to enjoy their purchases.
 
-To save time in this process, the IT team suggested an ML system that detects instantly, using a leaf tree image, if it is healthy or has powdery mildew. A similar manual process is in place for other crops for detecting pests, and if this initiative is successful, there is a realistic chance to replicate this project for all other crops. The dataset is a collection of cherry leaf images provided by Farmy & Foods, taken from their crops.
+The core business requirements driving the development of VineFind are:
 
-- 1 - The client is interested in conducting a study to visually differentiate a healthy cherry leaf from one with powdery mildew.
-- 2 - The client is interested in predicting if a cherry leaf is healthy or contains powdery mildew.
+* To empower users to discover wines that genuinely match their individual taste profiles.
+
+* To significantly reduce the time and effort users spend on selecting new wines.
+
+* To minimise the risk of dissatisfaction with wine purchases by increasing the likelihood of enjoyment.
+
+* To prevent the experience of "drinking bad wine" by consistently recommending high-quality, relevant options.
+
 
 ## Hypothesis and how to validate?
 
-- List here your project hypothesis(es) and how you envision validating it (them).
 
 |Number| Null Hypothesis (H<sub>0</sub>) | Reason for selection | What does it proves? | Testing| Outcome |
 |------|---------------------------------|----------------------|----------------------|--------|---------|
-|**1.**|The inclusion of `description` as numerical representation of wine has no added value for predicting the grape `variety` or `country` of origin.|This is the most prominent hypothesis that will determine whether the predictive model using BERT for the `description` feature.|Rejecting this hypothesis would prove the necessity of using BERT to achieve the project’s goal| Two models one with and without **BERT**| Fail to reject hypothesis |
-|**2.**|The `variety` will have no impact on the `province` or `country`.|This tests the statistical link between grape `variety` and its geographical origin (`province` or `country`).|Rejecting this null would confirm that knowing the grape variety provides significant information about where the wine is grown.|Perform a Chi-Square test of independence between `variety` and `province` and between `variety` and `country` to statistically assess their association. This step will remove ambiguity and subject reading of visual data.| Hypothesis was rejected |
-|**3.**|The `variety` and the `description` will have no impact on the `country`.|This hypothesis will show whether the grape `variety` and `description` of the wine flavour profile will determine its `country` of origin.|Rejecting this hypothesis would show that these two features together are strong indicators of a wine's geographical location.| Build a model that predicts `country` using `variety` and `description`. Apply performance metrics that could include Rand Index, Accuracy, Recall, Precision, F1-score.|
-|**4.**|The content-based filtering system will not effectively recommend wines based on their taste profile.|This hypothesis will determine whether the overall aim of the project is achieved by recommending wines based on user input.| Rejecting this null would confirm the project’s goal has been met as wine is recommended based on their taste profile.|Focus group feedback and Streamlit **dummy** will be used. Using a likert scale and free text response. |||
-|**5.**| The inclusion of additional variables into the `description` will not statistically improve the quality of content-based clusters or increase cosine similarities.| This hypothesis is necessary because initial K-Means clustering, silhouette score, and elbow method results demonstrated that the clusters were ineffective, hindering precise recommendations and optimal similarity scores.|Rejecting this null hypothesis would demonstrate that adding more descriptive tags will enhance clustering performance and lead to higher cosine similarity scores.|The metrics will include: Cosine similarity, Chi-Squared, K-Means, and silhouette scores. Focus group feedback|
+|**1.**|The content-based filtering system will not effectively recommend wines based on their taste profile.|This hypothesis will determine whether the overall aim of the project is achieved by recommending wines based on user input.| Rejecting this null would confirm the project’s goal has been met as wine is recommended based on their taste profile.|Focus group feedback and Streamlit **dummy** will be used. Using a likert scale and free text response. |This hypothesis has been rejected. The content-based filtering system was able to have an average score of **72%**. 
   
 
 ## The rationale to map the business requirements to the Data Visualisations and ML tasks
 
 - List your business requirements and a rationale to map them to the Data Visualisations and ML tasks.
 
+* To empower users to discover wines that genuinely match their individual taste profiles.
+
+* To significantly reduce the time and effort users spend on selecting new wines.
+
+* To minimise the risk of dissatisfaction with wine purchases by increasing the likelihood of enjoyment.
+
+### To prevent the experience of "drinking bad wine" by consistently recommending high-quality, relevant options.
+
+The dataset is biased towards good quality wines. The distribution in rankings implies that most wines fall within the "very good quality" range, offering a solid foundation for customer satisfaction. The presence of those exceptional, highly-rated wines creates an aspirational desire for end-users, encouraging them to seek out these top-tier selections. For sommeliers, this means they can confidently meet customer expectations with a wide range of very good wines, while also having a few extraordinary options to drive sales and foster repeat business.
+
+The left-skewed distribution of wine scores indicates that most wines receive lower ratings, with only a small number achieving high scores. This is typical in wine ratings, where exceptional wines are rare. However, the presence of outliers highlights a few wines with significantly high ratings. These standouts, while few, can pull the average score higher than the median, suggesting they're notably better than the majority.
+
+
+![Distrubution of wine scores](https://res.cloudinary.com/dybts6jei/image/upload/v1750889631/boxplot_points_yac4jg.png)
+
 ## ML Business Case
 
 - In the previous bullet, you potentially visualised an ML task to answer a business requirement. You should frame the business case using the method we covered in the course.
 
+The system primarily utilises semantic similarity. This involves a pre-trained SentenceTransformer model, using deep learning for natural language processing, to encode both user-provided descriptions of wines they enjoy and professional wine descriptions into numerical representations. Cosine similarity is then applied to match user input to the most relevant wines in the dataset.
+
+Beyond the core recommendation engine, the project also incorporates Exploratory Data Analysis (EDA). This includes using profiling tools, various visualizations (such as boxplots and word clouds), and statistical tests (e.g., chi-squared for price/points association) to understand the dataset.
+
 ## Dashboard Design
 
 - List all dashboard pages and their content, either blocks of information or widgets, like buttons, checkboxes, images, or any other items, that your dashboard library supports.
-- Finally, during the project development, you may revisit your dashboard plan to update a given feature (for example, at the beginning of the project, you were confident you would use a given plot to display an insight, but later, you chose another plot type).
+Page 1: The Pipeline
+* Heading
+* Introduction 
+* Simple Tasting and flavors of wine 
+* Instructions about how to use the tool
+* Example
+* Text box
+* Button "Get Recommendations"
+* Loading message
+* feedback form
+
+Side bar 
+* Menu
+* Logo
+* Rating and Price Guide
+
+Page 2: Project Summary
+* Aims
+* Learning Methods
+* Ideal Outcome
+* Success and Failure Metric
+* Model Output and User Relevance
+* Heuristics and Data
+
+Page 3: Data Exploration 
+* Describing the datset: Dataframe
+* Sample of the dataset: Dataframe
+* Feature Strategy: table
+* Dataset Statestics
+* Missing Values: Misso Matrix
+* Analysis of Price and Points
+    * Scatterplot
+    * Boxplot
+* Key insights 
+
+Page 4: Evaluation of Model Performance
+* White wine evaluation
+* White Wine Evaluation Results
+* Analysis of Results
+* Top White Wines: Dataframe
+* Conclusion
+* Key Strengths Observed
+* Identified Challenges and Areas for Refinement
+* Recommendations for Improvement
+
 
 ## Unfixed Bugs
 
@@ -103,33 +169,113 @@ To save time in this process, the IT team suggested an ML system that detects in
 6. If the slug size is too large, then add large files not required for the app to the .slugignore file.
 
 ## Main Data Analysis and Machine Learning Libraries
+Key Insights
+🍷 Key Conclusions About the Dataset
 
-- Here, you should list the libraries used in the project and provide an example(s) of how you used these libraries.
+### High Cardinality & Rich Descriptions
 
-## Credits
+The dataset has high cardinality, especially in textual fields like wine descriptions. This richness offers a strong foundation for a taste-based recommendation system but also increases computational complexity.
 
-- In this section, you need to reference where you got your content, media and from where you got extra help. It is common practice to use code from other repositories and tutorials. However, it is necessary to be very specific about these sources to avoid plagiarism.
-- You can break the credits section up into Content and Media, depending on what you have included in your project.
+### Bias Toward US Wines and Reviewers
+
+There’s a clear geographic and reviewer bias—most wines are US-based and reviewed by Wine Enthusiast tasters. This could limit relevance for international users but aligns well with a US-centric audience.
+
+### Quality Ratings Are Skewed
+
+The majority of wines are rated as very good quality, creating a skewed rating distribution. While helpful for identifying strong contenders, it may lead to a model that over-recommends already well-regarded wines.
+
+### Duplicates and Missing Data
+
+Though the dataset contains over 280,000 records, there are only ~169,000 unique entries. Over 21% of cells have missing values, especially in columns like taster name, Twitter handle, and title. These were dropped to optimize performance and reduce memory usage.
+
+### Affordability and Aspirational Wines
+
+Wines span a broad price range—most are affordable, but there are a few standout luxury selections. This helps the system cater to both casual drinkers and connoisseurs seeking rare finds.
+
+### Quality–Price Relationship Is Nonlinear
+
+Top-rated wines don’t always have the highest price tags. Some mid-tier wines are surprisingly expensive, suggesting brand value or rarity may influence pricing more than objective quality.
+
+## Main Data Analysis and Machine Learning Libraries
+
+Here, you should list the libraries used in the project and provide an example(s) of how you used these libraries.
+
+- **Pandas** - This library was used for data manipulation to facilate the analysing and presenting data in Dataframes. It allowed for easy handling of tabular data making it to filter and aggreate the data
+
+- **SentenceTransformer** - Used to create multidimensial embeddings enabling the model to learn the semantic meaning 
+
+- **Streamlit** - Provided the platform to develop the dashboard to showcase the pipeline and summarise key findings
+
+- **wordcloud** - Used for data visualisation of textual information to quickly see trends and similarites. This was used both for data understanding at the begining and end of the project
+
+- **Missingno** - An easy to read visualisation to determine the amount of missing data
+
+- **Scipy** - This allowed the use of chi-squared test to create an accurate evaluation whether there were trends in the data, specifically betwen `points` and `price`
+
+- **Matplotlib** - This plotting library allow for the creation of static visuals so the data could be inspected.
+
+- **ydata_profiling** To gain an overview of the data to assess the benefits of using Matplotlib to examine the data.
+
+* **tqdm.notebook** - To estimate the amount of time it takes for the machine learning alorgithm requires
+
+* **joblib** - Used to efficiently save and load files, preserving pandas data types and manipulations. It provides a faster and more robust alternative to pickle for serialising large numpy arrays and pandas objects.
+
+* **Numpy** - Used to create a custom column that allowed the translation of price and points into more user friendly categories. 
+
+* **Scikit-Learn** The cosine similiarity is a module in Scikit-Learn. This formed the second part of the pipeline. Alongside the sentence transformer 
+
+
+# Credits
 
 ### Content
 
-- The text for the Home page was taken from Wikipedia Article A.
-- Instructions on how to implement form validation on the Sign-Up page were taken from [Specific YouTube Tutorial](https://www.youtube.com/).
-- The icons in the footer were taken from [Font Awesome](https://fontawesome.com/).
+[Gemini](https://gemini.google.com/app) - Used for brainstorming, creations of step by step guides when stuck and explaining documentation. Proofreading all documentation
 
-Wine types: `inputs/datasets/raw/wine_types.csv` This data was created using the little course in Wine Tasting and was used to verify the ouputs of the ML model.
+[copilot](https://copilot.microsoft.com/chats/STrD7LmErWYZQ9zFth7DR) - used to explain code when stuck
+
+[Geekforgeeks - Missingno](https://www.geeksforgeeks.org/machine-learning/python-visualize-missing-values-nan-values-using-missingno-library/)
+
+#### Documentation
+
+* [Pandas](https://pandas.pydata.org/pandas-docs/stable/index.html) 
+
+* [SentenceTransformer](https://huggingface.co/sentence-transformers)
+
+* [Streamlit](https://docs.streamlit.io/)
+
+* [wordcloud- Code Institute tutorials](https://codeinstitute.net/)
+
+* [Scipy](https://scipy.org/)
+
+* [Matplotlib](https://matplotlib.org/)
+
+* [ydata_profiling](https://docs.profiling.ydata.ai/latest/)
+
+* [tqdm.notebook](https://tqdm.github.io/docs/notebook/)
+
+* [joblib](https://joblib.readthedocs.io/en/stable/)
+
+* [Numpy](https://numpy.org/) 
+
+* [Scikit-Learn*](https://scikit-learn.org/stable/index.html)
+
+
 Williams, D (2013). A Little course in... Wine Tasting. DK Ltd. London
 
 ### Media
 
-- The photos used on the home and sign-up page are from This Open-Source site.
-- The images used for the gallery page were taken from this other open-source site.
+[Unsplash](https://unsplash.com/)
 
-## Acknowledgements (optional)
+[Emoji's](https://emojicopy.com/)
 
-- Thank the people who provided support throughout this project.
+[wine_logo](https://openart.ai/home?msclkid=e70ac5f950151baa6055ada7708506f8&utm_source=bing&utm_medium=cpc&utm_campaign=Ser%20-%20EU%20-%20AI%20generator%20-%20CR%3E1.0%25&utm_term=ai%20image%20generator&utm_content=Top%20Terms%20-%20Exact%20-%200.0)
 
-## Named Entity Recognition (NER) using Hugging Face Transformers
-# https://www.youtube.com/watch?time_continue=53&v=rsyrZnZ8J2o&embeds_referring_euri=https%3A%2F%2Fwww.bing.com%2F&embeds_referring_origin=https%3A%2F%2Fwww.bing.com&source_ve_path=MjM4NTE
+[Wine Glass Emoji](https://emojiterra.com/wine-glass/)
 
-# x_train['designation'].value_counts().unique()
+
+## Acknowledgements
+
+Thank you to Team Amazing, who always help me at the last minute to do valuable testing.
+
+
+

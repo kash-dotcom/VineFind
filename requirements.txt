@@ -1,5 +1,4 @@
 pandas==2.3.0
-numpy
 scikit_learn
 sentence_transformers==4.1.0
 streamlit==1.40.2
