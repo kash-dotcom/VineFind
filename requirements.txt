@@ -3,7 +3,7 @@ scikit_learn
 sentence_transformers==4.1.0
 streamlit==1.40.2
 # protobuf>=3.20.3,<5.0.0dev
-torch==2.2.2+cpu
+torch
 cloudinary
 python-dotenv
 google-cloud-storage
