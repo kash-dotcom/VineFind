@@ -153,22 +153,42 @@ Page 4: Evaluation of Model Performance
 
 ## Unfixed Bugs
 
-- At times Steamlit 
+- The `requirements.txt` file is designed to be comprehensive. However there has been persistent dependency issues. While the exact root cause of these problems remains under investigation, NumPy is suspected to be a frequent contributor.
 
 ## Deployment
 
 ### Heroku
 
-- The App live link is: `https://YOUR_APP_NAME.herokuapp.com/`
-- Set the runtime.txt Python version to a [Heroku-20](https://devcenter.heroku.com/articles/python-support#supported-runtimes) stack currently supported version.
-- The project was deployed to Heroku using the following steps.
+Our application is currently deployed and accessible live at: [text](https://vine-find-b860638a63f0.herokuapp.com/)
 
-1. Log in to Heroku and create an App
-2. At the Deploy tab, select GitHub as the deployment method.
-3. Select your repository name and click Search. Once it is found, click Connect.
-4. Select the branch you want to deploy, then click Deploy Branch.
-5. The deployment process should happen smoothly if all deployment files are fully functional. Click the button Open App on the top of the page to access your App.
-6. If the slug size is too large, then add large files not required for the app to the .slugignore file.
+The project was deployed to Heroku, adhering to their guidelines for Python applications. To ensure compatibility, the `.python-version` file was configured to use a Python version supported by the Heroku-20 stack.
+
+The deployment process followed these steps:
+
+1. Set the Python Runtime Ensure the `.python-version` file specifies a Python version supported by the Heroku-20 stack (e.g., python-3.11).
+
+1. Create a New Heroku App Log in to the Heroku dashboard and create a new app with a unique name.
+
+1. Connect to GitHub
+
+1. Navigate to the Deploy tab.
+
+1. Select GitHub as the deployment method.
+
+1. Search for your repository and click Connect.
+
+1. Deploy the App
+
+1. Choose the desired branch (e.g., main).
+
+1. Click Deploy Branch.
+
+1. Once deployment is complete, click Open App to access your live application.
+
+1. Manage Slug Size (if needed) If your app exceeds Heroku's slug size limit, use a 
+`.slugignore` file to exclude unnecessary large files from deployment.
+
+Slug Size Management: In instances where the slug size was too large, unnecessary large files were added to the .slugignore file to optimize the deployment.
 
 ## Main Data Analysis and Machine Learning Libraries
 Key Insights
