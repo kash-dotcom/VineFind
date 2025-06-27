@@ -23,7 +23,6 @@ def evaluation_body():
         "This section evaluates the performance of the machine learning model "
         "used for personalised wine recommendations."
     )
-    st.subheader("White Wine Evaluation")
 
     st.error(
         "I like white wine, especially Sauvignon Blanc. "
@@ -31,7 +30,6 @@ def evaluation_body():
         "I prefer wines that are not too sweet and have a crisp finish."
     )
 
-    st.write("### White Wine Evaluation Results")
     white_cosine = load_cosine_similarity_data()
     cosine_drop_index = white_cosine[["similarity"]].reset_index(drop=True)
     cosine_drop_index.index = cosine_drop_index.index + 1

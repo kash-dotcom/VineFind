@@ -24,9 +24,7 @@ def data_exploration_page():
     st.write("Explore the dataset to understand its structure and contents.")
 
     # -- Dataset Overview ---
-    st.title("Describing the Dataset")
-    st.write("This section provides a brief overview of the dataset used in"
-             "this application.")
+
     df = load_data()
     st.write(df.describe(include="all"))
     st.markdown("""

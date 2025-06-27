@@ -1,21 +1,21 @@
 import streamlit as st
 
-st.set_page_config(
-            page_title="VineFind",
-            page_icon="🍷")
-
 from app_pages.multipage import MultiPage
 from dotenv import load_dotenv
 import cloudinary
 import os
-
-app = MultiPage(app_name="VineFind ")
 
 # load pages scripts
 from app_pages.A_the_pineline import the_project_body
 from app_pages.B_project_summary import project_summary_body
 from app_pages.C_data_exploration import data_exploration_page
 from app_pages.D_evaluation import evaluation_body
+
+st.set_page_config(
+            page_title="VineFind",
+            page_icon="🍷")
+
+app = MultiPage(app_name="VineFind ")
 
 
 # Create an instance of the app
