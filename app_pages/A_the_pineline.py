@@ -66,7 +66,7 @@ that are fresh and fruity, with a hint of citrus. I prefer wines that are not
 too sweet and have a crisp finish."
              """)
     with st.form(
-        key="user_input", clear_on_submit=False, enter_to_submit=True
+        key="user_input", clear_on_submit=False
     ):
 
         user_input = st.text_area(

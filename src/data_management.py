@@ -35,10 +35,6 @@ def download_files_from_gcs(bucket_name, source_blob_name,
         is_heroku = "DYNO" in os.environ
 
         if is_heroku:
-            st.info(
-                "Running on Heroku. Using credentials from "
-                "GCP_SERVICE_ACCOUNT_KEY environment variable."
-            )
             if "GCP_SERVICE_ACCOUNT_KEY" in os.environ:
                 encoded_key = os.environ["GCP_SERVICE_ACCOUNT_KEY"]
                 try:
