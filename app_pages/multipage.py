@@ -1,6 +1,6 @@
 import streamlit as st
 
-# Class to generate multiple Streamlit pages using an object oriented approach 
+# Class to generate multiple Streamlit pages using an object oriented approach
 
 
 class MultiPage:

@@ -8,6 +8,16 @@ def project_summary_body():
     It provides an overview of the project, including objectives, data sources,
     and key findings.
     """
+    logo = ("https://res.cloudinary.com/dybts6jei/image/upload/v1750626537/"
+            "logo_red_kcrp8n.png")
+    st.sidebar.image(logo, width=200)
+
+    cheese_and_wine = (
+        "https://res.cloudinary.com/dybts6jei/image/upload/"
+        "v1750626552/camille-brodard-f6Wpz1QPFZI-unsplash_ybqbgl.jpg"
+    )
+    st.image(cheese_and_wine)
+    st.caption("Photo by Camille Brodard on Unsplash")
 
     st.title(
         "Project Summary: VineFind - A content-based wine "
@@ -82,5 +92,15 @@ def project_summary_body():
 * The description feature was embedded using Sentence Transformers.
 * Removal of duplicates based on wine descriptions.
 * Imputation strategies and disclaimers for missing price data.
-
                 """)
+
+
+def sidebar_body():
+    """
+    This function renders the sidebar content for the "Project Summary" page.
+    It provides a brief overview of the project and its objectives.
+    """
+    logo = ("https://res.cloudinary.com/dybts6jei/image/upload/v1750626537/"
+            "logo_red_kcrp8n.png")
+    st.sidebar.image(logo, width=200)
+    st.write("VineFind")

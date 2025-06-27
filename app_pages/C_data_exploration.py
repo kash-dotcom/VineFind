@@ -5,8 +5,10 @@ from src.data_management import download_files_from_gcs
 
 def data_exploration_page():
     # -- Page title and introduction ---
-    st.title("Data Exploration")
-    st.write("Explore the dataset to understand its structure and contents.")
+
+    logo = ("https://res.cloudinary.com/dybts6jei/image/upload/v1750626537/"
+            "logo_red_kcrp8n.png")
+    st.sidebar.image(logo, width=200)
 
     nighttime_wine_with_a_smile = (
         "https://res.cloudinary.com/dybts6jei/image/upload/v1750626557/"
@@ -18,6 +20,8 @@ def data_exploration_page():
         "[Phakphoom Srinorajan](https://unsplash.com/photos/"
         "person-holding-wine-glass-with-red-wine-hPkUQ30hvRA)"
     )
+    st.title("Data Exploration")
+    st.write("Explore the dataset to understand its structure and contents.")
 
     # -- Dataset Overview ---
     st.title("Describing the Dataset")
@@ -369,3 +373,14 @@ def price_points_analysis(df):
     price_df = pd.DataFrame(price, index=None)
     price_df
     return price_df
+
+
+def sidebar_body():
+    """
+    This function renders the sidebar content for the "Project Summary" page.
+    It provides a brief overview of the project and its objectives.
+    """
+    logo = ("https://res.cloudinary.com/dybts6jei/image/upload/v1750626537/"
+            "logo_red_kcrp8n.png")
+    st.sidebar.image(logo, width=200)
+    st.write("VineFind")

@@ -9,6 +9,14 @@ def evaluation_body():
     It provides an overview of the evaluation process, including metrics,
     results, and insights.
     """
+    logo = ("https://res.cloudinary.com/dybts6jei/image/upload/v1750626537/"
+            "logo_red_kcrp8n.png")
+    st.sidebar.image(logo, width=200)
+
+    Vinyard = ("https://res.cloudinary.com/dybts6jei/image/upload/v1750626558/"
+               "dan-meyers-0AgtPoAARtE-unsplash_naudxa.jpg")
+
+    st.image(Vinyard, caption="Photo by Dan Meyers on Unsplash")
 
     st.title("Evaluation of Model Performance")
     st.write(
@@ -17,7 +25,7 @@ def evaluation_body():
     )
     st.subheader("White Wine Evaluation")
 
-    st.warning(
+    st.error(
         "I like white wine, especially Sauvignon Blanc. "
         "I enjoy wines that are fresh and fruity, with a hint of citrus. "
         "I prefer wines that are not too sweet and have a crisp finish."
@@ -171,38 +179,13 @@ def load_dataframe():
 
     return white_top_wines
 
-    # # Load evaluation data
-    # evaluation_data = download_files_from_gcs(
-    #     bucket_name="vinefind-bucket",
-    #     source_blob_name="evaluation_data.csv",
-    #     destination_file_name="evaluation_data.csv"
-    # )
 
-    # if evaluation_data is not None:
-    #     df = pd.read_csv("evaluation_data.csv")
-    #     st.dataframe(df)
-
-    #     st.subheader("Evaluation Metrics")
-    #     st.write("The model's performance is evaluated using various metrics
-    # such as accuracy, precision, recall, and F1-score.")
-
-    #     # Display metrics
-    #     metrics = {
-    #         "Accuracy": df["accuracy"].mean(),
-    #         "Precision": df["precision"].mean(),
-    #         "Recall": df["recall"].mean(),
-    #         "F1 Score": df["f1_score"].mean()
-    #     }
-
-    #     st.json(metrics)
-
-    #     st.subheader("Insights")
-    #     st.write(
-    #         "The model shows promising results with an overall accuracy of "
-    #         f"{metrics['Accuracy']:.2f}. Further
-    # improvements can be made by "
-    #         "tuning hyperparameters and incorporating more
-    #  diverse training data."
-    #     )
-    # else:
-    #     st.error("Failed to load evaluation data.")
+def sidebar_body():
+    """
+    This function renders the sidebar content for the "Project Summary" page.
+    It provides a brief overview of the project and its objectives.
+    """
+    logo = ("https://res.cloudinary.com/dybts6jei/image/upload/v1750626537/"
+            "logo_red_kcrp8n.png")
+    st.sidebar.image(logo, width=200)
+    st.write("VineFind")

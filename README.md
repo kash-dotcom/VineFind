@@ -4,6 +4,8 @@
 
 Life’s too short for a bad bottle of wine — and too short to keep grabbing the same one just because it’s familiar. By describing your favourite bottle of wine this predictive analytics tool will help you find your new favourite bottle.
 
+You can visit the live site [here](https://vine-find-b860638a63f0.herokuapp.com/)
+
 ## How to use this repo
 
 1. To set up and run this project, follow these steps:
