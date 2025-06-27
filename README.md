@@ -8,7 +8,11 @@ You can visit the live site [here](https://vine-find-b860638a63f0.herokuapp.com/
 
 ## How to use this repo
 
-1. To set up and run this project, follow these steps:
+To set up and run this project, follow these steps. This project uses two branches:  
+
+**final deployment**: the live, production-ready version currently running on Heroku.
+
+ **main**: the editable development branch for ongoing updates and improvements
 
 1. **Repository Setup**: Begin by using this repository as a template to create your own GitHub project repository.
 
@@ -18,13 +22,11 @@ You can visit the live site [here](https://vine-find-b860638a63f0.herokuapp.com/
 
 1. **Dependency Installation**:Install Dependencies: Once the workspace is ready, open a new terminal within Codespaces and run pip install -r requirements.txt to install all necessary project dependencies.
 
-1.**Access Notebooks**: Open the jupyter_notebooks directory and select the desired notebook you wish to work with.
+1. **Access Notebooks**: Open the jupyter_notebooks directory and select the desired notebook you wish to work with.
 
 1. **Select Kernel**: Finally, click the kernel button within the notebook interface and choose "Python Environments" to ensure the correct environment is active.
 
 1. This project uses [Git LFS](https://git-lfs.github.com/) for large files. Please run `git lfs install` after cloning.
-
-*Note that the kernel says Python 3.11 as it inherits from the workspace, so it will be Python-3.11 as installed by Codespaces. To confirm this, you can use `! python --version` in a notebook code cell.*
 
 ## Cloud IDE Reminders
 
@@ -44,11 +46,11 @@ You can now use the `heroku` CLI program - try running `heroku apps` to confirm 
 
 **Key Highlights about the data:**
 
-* **Dataset Size:** 169,430 records across 14 variables, totaling 19.4 MiB in memory.After the data preparation stage **14,441** data entries were used to create the model
+* **Dataset Size:** **169,430** records across **14 variables**, totaling 19.4 MiB in memory. After the data preparation stage **14,441** data entries were used to create the model
 
-* **Missing Data:** 21.4% of cells contain missing values, representing 507,872 gaps that require attention.
+* **Missing Data:** **21.4%** of cells contain missing values, representing **507,872** gaps that require attention.
 
-* **Variable Types:** The dataset comprises 3 numeric variables and 11 text-based features, providing a mix of quantitative and descriptive data.* 
+* **Variable Types:** The dataset comprises **3 numeric variables** and **11 text-based features**, providing a mix of quantitative and descriptive data.* 
 
 User stories were create based on the roles that often participate within the predictive analytics process. With they main focus being able to select a bottle wine that I would enjoy. 
 
@@ -191,7 +193,8 @@ The deployment process followed these steps:
 Slug Size Management: In instances where the slug size was too large, unnecessary large files were added to the .slugignore file to optimize the deployment.
 
 ## Main Data Analysis and Machine Learning Libraries
-Key Insights
+### Key Insights
+
 🍷 Key Conclusions About the Dataset
 
 ### High Cardinality & Rich Descriptions
@@ -282,7 +285,7 @@ Here, you should list the libraries used in the project and provide an example(s
 * [Scikit-Learn*](https://scikit-learn.org/stable/index.html)
 
 
-Williams, D (2013). A Little course in... Wine Tasting. DK Ltd. London
+* Williams, D (2013). A Little course in... Wine Tasting. DK Ltd. London
 
 ### Media
 
